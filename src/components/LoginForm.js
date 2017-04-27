@@ -30,7 +30,7 @@ class LoginForm extends Component {
 
   render() {
     let {email, password} = this.state
-    let {isLoginPending, isLoginSuccess, loginError} = this.props
+    let {text} = this.props.Login
     return (
       <form name="loginForm" onSubmit={this.handleSubmit}>
         <div className="form-group-collection">
@@ -58,9 +58,7 @@ class LoginForm extends Component {
         <input type="submit" value="Login" />
 
         <div className="message">
-          {isLoginPending && <div>Please wait...</div>}
-          {isLoginSuccess && <div>Success.</div>}
-          {loginError && <div>{loginError.message}</div>}
+          {text}
         </div>
       </form>
     )
@@ -68,9 +66,7 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoginPending: state.isLoginPending,
-  isLoginSuccess: state.isLoginSuccess,
-  loginError: state.loginError
+  Login: state
 })
 
 const mapDispatchToProps = dispatch => ({

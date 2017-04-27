@@ -8,21 +8,6 @@ const setLoginPending = createAction(SET_LOGIN_PENDING)
 const setLoginSuccess = createAction(SET_LOGIN_SUCCESS)
 const setLoginError = createAction(SET_LOGIN_ERROR)
 
-export const login = (email, password) => dispatch => {
-  dispatch(setLoginPending(true))
-  dispatch(setLoginSuccess(false))
-  dispatch(setLoginError(null))
-
-  callLoginApi(email, password, error => {
-    dispatch(setLoginPending(false))
-    if (!error) {
-      dispatch(setLoginSuccess(true))
-    } else {
-      dispatch(setLoginError(error))
-    }
-  })
-}
-
 const callLoginApi = (email, password, callback) => {
   setTimeout(() => {
     if (email === 'admin@example.com' && password === 'admin') {
@@ -33,10 +18,21 @@ const callLoginApi = (email, password, callback) => {
   }, 1000)
 }
 
+export const login = (email, password) => dispatch => {
+  dispatch(setLoginPending())
+
+  callLoginApi(email, password, error => {
+    if (error) {
+      dispatch(setLoginError(error))
+    }
+    dispatch(setLoginSuccess())
+  })
+}
+
 const initalState = {
-  isLoginSuccess: false,
-  isLoginPending: false,
-  loginError: null
+  requestPending: false,
+  text: null,
+  error: false
 }
 
 export default (state = initalState, action) => {
@@ -44,18 +40,22 @@ export default (state = initalState, action) => {
     case SET_LOGIN_PENDING:
       return {
         ...state,
-        isLoginPending: action.payload
+        text: 'Please wait...',
+        requestPending: true
       }
     case SET_LOGIN_SUCCESS:
       return {
         ...state,
-        isLoginSuccess: action.payload
+        text: 'Success',
+        requestPending: false
       }
 
     case SET_LOGIN_ERROR:
       return {
         ...state,
-        loginError: action.payload
+        requestPending: false,
+        error: true,
+        text: action.payload
       }
 
     default:
