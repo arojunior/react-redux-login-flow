@@ -67,18 +67,14 @@ class LoginForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isLoginPending: state.isLoginPending,
-    isLoginSuccess: state.isLoginSuccess,
-    loginError: state.loginError
-  }
-}
+const mapStateToProps = state => ({
+  isLoginPending: state.isLoginPending,
+  isLoginSuccess: state.isLoginSuccess,
+  loginError: state.loginError
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    login: (email, password) => dispatch(login(email, password))
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  login: (email, password) => dispatch(login(email, password))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
