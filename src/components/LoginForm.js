@@ -7,10 +7,9 @@ class LoginForm extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleSubmit(e) {
+  handleSubmit = e => {
     e.preventDefault()
     let {email, password} = this.state
     this.props.login(email, password)
