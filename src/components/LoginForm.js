@@ -6,7 +6,10 @@ import '../assets/LoginForm.css'
 class LoginForm extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      email: '',
+      password: ''
+    }
   }
 
   handleSubmit = e => {
@@ -16,6 +19,12 @@ class LoginForm extends Component {
     this.setState({
       email: '',
       password: ''
+    })
+  }
+
+  handleFieldChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
     })
   }
 
@@ -30,7 +39,7 @@ class LoginForm extends Component {
             <input
               type="email"
               name="email"
-              onChange={e => this.setState({email: e.target.value})}
+              onChange={this.handleFieldChange}
               value={email}
             />
           </div>
@@ -40,7 +49,7 @@ class LoginForm extends Component {
             <input
               type="password"
               name="password"
-              onChange={e => this.setState({password: e.target.value})}
+              onChange={this.handleFieldChange}
               value={password}
             />
           </div>
