@@ -30,7 +30,7 @@ class LoginForm extends Component {
 
   render() {
     let {email, password} = this.state
-    let {text} = this.props.Login
+    let {text, error} = this.props.Login
     return (
       <form name="loginForm" onSubmit={this.handleSubmit}>
         <div className="form-group-collection">
@@ -59,6 +59,7 @@ class LoginForm extends Component {
 
         <div className="message">
           {text}
+          {error && error.message}
         </div>
       </form>
     )

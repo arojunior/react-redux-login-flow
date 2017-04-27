@@ -23,7 +23,7 @@ export const login = (email, password) => dispatch => {
 
   callLoginApi(email, password, error => {
     if (error) {
-      dispatch(setLoginError(error))
+      return dispatch(setLoginError(error))
     }
     dispatch(setLoginSuccess())
   })
@@ -54,8 +54,8 @@ export default (state = initalState, action) => {
       return {
         ...state,
         requestPending: false,
-        error: true,
-        text: action.payload
+        text: null,
+        error: action.payload
       }
 
     default:
