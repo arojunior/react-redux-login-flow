@@ -7,14 +7,24 @@ class LoginForm extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.onSubmit = this.onSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    let {email, password} = this.state
+    this.props.login(email, password)
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
 
   render() {
     let {email, password} = this.state
     let {isLoginPending, isLoginSuccess, loginError} = this.props
     return (
-      <form name="loginForm" onSubmit={this.onSubmit}>
+      <form name="loginForm" onSubmit={this.handleSubmit}>
         <div className="form-group-collection">
           <div className="form-group">
             <label>Email:</label>
@@ -46,16 +56,6 @@ class LoginForm extends Component {
         </div>
       </form>
     )
-  }
-
-  onSubmit(e) {
-    e.preventDefault()
-    let {email, password} = this.state
-    this.props.login(email, password)
-    this.setState({
-      email: '',
-      password: ''
-    })
   }
 }
 
