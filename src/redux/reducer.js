@@ -1,4 +1,4 @@
-import {createAction} from 'redux-actions'
+import {createAction, handleActions} from 'redux-actions'
 
 const SET_LOGIN_PENDING = 'modules/Login/PENDING'
 const SET_LOGIN_SUCCESS = 'modules/Login/SUCCESS'
@@ -35,30 +35,26 @@ const initalState = {
   error: false
 }
 
-export default (state = initalState, action) => {
-  switch (action.type) {
-    case SET_LOGIN_PENDING:
-      return {
-        ...state,
-        text: 'Please wait...',
-        requestPending: true
-      }
-    case SET_LOGIN_SUCCESS:
-      return {
-        ...state,
-        text: 'Success',
-        requestPending: false
-      }
+const reducer = handleActions(
+  {
+    [SET_LOGIN_PENDING]: (state, action) => ({
+      ...state,
+      text: 'Please wait...',
+      requestPending: true
+    }),
+    [SET_LOGIN_SUCCESS]: (state, action) => ({
+      ...state,
+      text: 'Success',
+      requestPending: false
+    }),
+    [SET_LOGIN_ERROR]: (state, action) => ({
+      ...state,
+      requestPending: false,
+      text: null,
+      error: action.payload
+    })
+  },
+  initalState
+)
 
-    case SET_LOGIN_ERROR:
-      return {
-        ...state,
-        requestPending: false,
-        text: null,
-        error: action.payload
-      }
-
-    default:
-      return state
-  }
-}
+export default reducer
