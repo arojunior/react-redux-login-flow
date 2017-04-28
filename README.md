@@ -12,3 +12,6 @@ npm intall
 npm start
 ```
 
+# Example
+**Login:** admin@example.com
+**Password:** admin
