@@ -37,9 +37,9 @@ class Login extends Component {
       <div>
         <LoginForm
           handleFieldChange={this.handleFieldChange}
+          handleSubmit={this.handleSubmit}
           password={password}
           email={email}
-          handleSubmit={this.handleSubmit}
           text={text}
           error={error}
         />
