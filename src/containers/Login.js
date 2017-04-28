@@ -5,23 +5,22 @@ import {bindActionCreators} from 'redux'
 import {login} from '../redux/actions'
 import LoginForm from '../components/LoginForm'
 
+const emptyForm = () => ({
+  email: '',
+  password: ''
+})
+
 class Login extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      email: '',
-      password: ''
-    }
+    this.state = emptyForm()
   }
 
   handleSubmit = e => {
     e.preventDefault()
     const {email, password} = this.state
     this.props.login({email, password})
-    this.setState({
-      email: '',
-      password: ''
-    })
+    this.setState(emptyForm)
   }
 
   handleFieldChange = e => {
