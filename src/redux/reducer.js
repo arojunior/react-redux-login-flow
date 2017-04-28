@@ -1,4 +1,4 @@
-import {createAction, handleActions} from 'redux-actions'
+import {handleActions} from 'redux-actions'
 
 import {SET_LOGIN_PENDING, SET_LOGIN_SUCCESS, SET_LOGIN_ERROR} from './actions'
 
