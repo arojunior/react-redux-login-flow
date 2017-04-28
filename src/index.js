@@ -3,7 +3,7 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 
 import LoginForm from './containers/Login'
-import store from './redux/store'
+import {store} from './redux/store'
 
 render(
   <Provider store={store}>
