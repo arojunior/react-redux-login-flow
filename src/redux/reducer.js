@@ -4,30 +4,27 @@ const SET_LOGIN_PENDING = 'modules/Login/PENDING'
 const SET_LOGIN_SUCCESS = 'modules/Login/SUCCESS'
 const SET_LOGIN_ERROR = 'modules/Login/ERROR'
 
-const setLoginPending = createAction(SET_LOGIN_PENDING)
-const setLoginSuccess = createAction(SET_LOGIN_SUCCESS)
-const setLoginError = createAction(SET_LOGIN_ERROR)
+const loginPending = createAction(SET_LOGIN_PENDING)
+const loginSuccess = createAction(SET_LOGIN_SUCCESS)
+const loginError = createAction(SET_LOGIN_ERROR)
 
-const callLoginApi = (email, password, callback) => {
-  setTimeout(() => {
-    if (email === 'admin@example.com' && password === 'admin') {
-      return callback(null)
-    } else {
-      return callback(new Error('Invalid email and password'))
-    }
-  }, 1000)
-}
-
-export const login = (email, password) => dispatch => {
-  dispatch(setLoginPending())
-
-  callLoginApi(email, password, error => {
-    if (error) {
-      return dispatch(setLoginError(error))
-    }
-    dispatch(setLoginSuccess())
+const callLoginApi = values => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (values.email !== 'admin@example.com' || values.password !== 'admin') {
+        return reject(new Error('Invalid email and password'))
+      }
+      return resolve(true)
+    }, 1000)
   })
 }
+
+export const login = values => ({
+  type: [loginPending, loginSuccess, loginError],
+  payload: {
+    data: () => callLoginApi(values)
+  }
+})
 
 const initalState = {
   requestPending: false,
@@ -39,13 +36,15 @@ const reducer = handleActions(
   {
     [SET_LOGIN_PENDING]: (state, action) => ({
       ...state,
+      requestPending: true,
       text: 'Please wait...',
-      requestPending: true
+      error: false
     }),
     [SET_LOGIN_SUCCESS]: (state, action) => ({
       ...state,
+      requestPending: false,
       text: 'Success',
-      requestPending: false
+      error: false
     }),
     [SET_LOGIN_ERROR]: (state, action) => ({
       ...state,

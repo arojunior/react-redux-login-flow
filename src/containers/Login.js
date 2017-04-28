@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
 import {login} from '../redux/reducer'
 import LoginForm from '../components/LoginForm'
 
@@ -14,8 +16,8 @@ class Login extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    let {email, password} = this.state
-    this.props.login(email, password)
+    const {email, password} = this.state
+    this.props.login({email, password})
     this.setState({
       email: '',
       password: ''
@@ -29,8 +31,8 @@ class Login extends Component {
   }
 
   render() {
-    let {email, password} = this.state
-    let {text, error} = this.props.Login
+    const {email, password} = this.state
+    const {text, error} = this.props.Login
     return (
       <div>
         <LoginForm
@@ -50,8 +52,6 @@ const mapStateToProps = state => ({
   Login: state
 })
 
-const mapDispatchToProps = dispatch => ({
-  login: (email, password) => dispatch(login(email, password))
-})
+const mapDispatchToProps = dispatch => bindActionCreators({login}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
