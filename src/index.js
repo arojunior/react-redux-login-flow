@@ -1,10 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
-import LoginForm from './containers/Login'
+import {render} from 'react-dom'
 import {Provider} from 'react-redux'
+
+import LoginForm from './containers/Login'
 import store from './redux/store'
 
-ReactDOM.render(
+render(
   <Provider store={store}>
     <LoginForm />
   </Provider>,
